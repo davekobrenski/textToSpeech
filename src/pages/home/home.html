@@ -1,14 +1,40 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>
-      Ionic Blank
+      <ion-icon name="globe"></ion-icon>
+      Text to Speech
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <p>Enter your own text below to have the app speak it, or use one of the samples by selecting an option below. (Click the "Speak" button to hear the text)</p>
+
+  <ion-list>
+    <ion-item>
+      <ion-label color="primary" floating>Text Samples:</ion-label>
+      <ion-select interface="action-sheet" [(ngModel)]="textToInsert" (ionChange)="updateText($event)">
+        <ion-option value="anthropocene">The Anthropocene</ion-option>
+        <ion-option value="pleistocene">The Pleistocene</ion-option>
+        <ion-option value="science">Lots of Science Words</ion-option>      
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary" floating>Text to Speak:</ion-label>
+      <ion-textarea rows="10" clearInput="true" placeholder="Type some text here" [(ngModel)]="speakingText"></ion-textarea>
+    </ion-item>
+  </ion-list>
+
+  <button ion-button color="dark" full round icon-left (click)="speakText()">Speak the Text</button>
+
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <div text-center style="color:darkgrey">textToSpeech v0.0.1</div>
+  </ion-toolbar>
+</ion-footer>

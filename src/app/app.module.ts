@@ -9,6 +9,11 @@ import { HomePage } from '../pages/home/home';
 
 import { TextToSpeech } from '@ionic-native/text-to-speech';
 
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { firebaseConfig } from './credentials';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -16,6 +21,9 @@ import { TextToSpeech } from '@ionic-native/text-to-speech';
   ],
   imports: [
     BrowserModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireAuthModule,
+    AngularFirestoreModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],

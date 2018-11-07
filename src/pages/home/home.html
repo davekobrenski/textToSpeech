@@ -11,11 +11,11 @@
 </ion-header>
 
 <ion-content padding>
-  <p>{{ headerText }}</p>
+  <p text-center>{{ headerText }}</p>
 
   <ion-list>
     <ion-item>
-      <ion-label color="primary" floating>Text Samples:</ion-label>
+      <ion-label color="primary" stacked>Text Samples:</ion-label>
       <ion-select interface="action-sheet" [(ngModel)]="textToInsert" (ionChange)="updateText($event)">
         
         <ion-option *ngFor="let text of allText | async" value="{{text.id}}">
@@ -26,12 +26,20 @@
     </ion-item>
 
     <ion-item>
-      <ion-label color="primary" floating>Text to Speak:</ion-label>
-      <ion-textarea rows="10" clearInput="true" placeholder="Type some text here" [(ngModel)]="speakingText"></ion-textarea>
+      <ion-label color="primary" stacked>Text to Speak:</ion-label>
+      <ion-textarea #textToSpeak rows="10" clearInput="true" placeholder="Type some text here" [(ngModel)]="speakingText"></ion-textarea>
     </ion-item>
   </ion-list>
 
-  <button ion-button color="dark" full round icon-left (click)="speakText()">Speak the Text</button>
+  <p text-center>
+    <button ion-button color="secondary" (click)="speakText()" icon-start>
+        <ion-icon name='play'></ion-icon> Speak the Text
+    </button> 
+    <button ion-button color="danger" outline (click)="stopText()" icon-start>
+        <ion-icon name='square'></ion-icon> Stop Text
+    </button> 
+  </p>
+  <p ion-text color="muted" text-center>{{ voiceOverRunning }} {{ screenReaderRunning }}</p>
 
 </ion-content>
 

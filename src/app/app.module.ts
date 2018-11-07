@@ -15,6 +15,8 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { firebaseConfig } from './credentials';
 import { TextSamplesProvider } from '../providers/text-samples/text-samples';
 
+import { MobileAccessibility } from '@ionic-native/mobile-accessibility';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -37,7 +39,8 @@ import { TextSamplesProvider } from '../providers/text-samples/text-samples';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     TextToSpeech,
-    TextSamplesProvider
+    TextSamplesProvider,
+    MobileAccessibility
   ]
 })
 export class AppModule {}

@@ -4,11 +4,13 @@ import { TextToSpeech } from '@ionic-native/text-to-speech';
 import { TextSamplesProvider } from '../../providers/text-samples/text-samples';
 import { Observable } from 'rxjs';
 import { AngularFirestoreCollection } from 'angularfire2/firestore';
+import { MobileAccessibility } from '@ionic-native/mobile-accessibility';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
+
 export class HomePage {
   speakingText: string = '';
   speakingLocale = 'en-US';
@@ -16,10 +18,14 @@ export class HomePage {
   textToInsert = '';
   headerText: string = '';
 
+  screenReaderRunning: string = 'Screen reader NOT enabled.';
+  voiceOverRunning: string = 'VoiceOver NOT enabled';
+
   private allText: Observable<any>;
   private allTextData: AngularFirestoreCollection<any>;
 
-  constructor(public navCtrl: NavController, private tts: TextToSpeech, private textProvider: TextSamplesProvider) {
+  constructor(public navCtrl: NavController, private tts: TextToSpeech, 
+    private textProvider: TextSamplesProvider, private mobileAccessibility: MobileAccessibility) {
     this.allText = this.textProvider.getAllText();
     this.allTextData = this.textProvider.getAllTextData();
   }
@@ -45,9 +51,21 @@ export class HomePage {
       .catch((reason: any) => console.log(reason));
   }
 
-  ionViewDidLoad() {
+  stopText() {
+    this.tts.stop();
+  }
 
+  ionViewDidLoad() {
+    //keep this here for now while testing.
     console.log(this.allText);
+
+    if(this.mobileAccessibility.isScreenReaderRunning()) {
+      this.screenReaderRunning = 'Screen reader enabled.';
+    }
+
+    if(this.mobileAccessibility.isVoiceOverRunning()) {
+      this.voiceOverRunning = 'VoiceOver enabled.';
+    }
 
     this.textProvider.getAppConfigText('headerText').subscribe(val => {
       this.headerText = val['text'];

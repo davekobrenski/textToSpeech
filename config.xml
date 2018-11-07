@@ -91,5 +91,6 @@
         <variable name="MAX_STORE" value="2" />
         <variable name="MIN_BACKGROUND_DURATION" value="30" />
     </plugin>
+    <plugin name="phonegap-plugin-mobile-accessibility" spec="1.0.5" />
     <engine name="ios" spec="4.5.5" />
 </widget>

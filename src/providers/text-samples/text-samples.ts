@@ -8,14 +8,14 @@ export class TextSamplesProvider {
   private textSamples: AngularFirestoreCollection<any>;
   private allText: Observable<any>;
 
-  private appText: AngularFirestoreCollection<any>;
+  //private appText: AngularFirestoreCollection<any>;
   //private appTextData: Observable<any>;
 
   constructor(private afs: AngularFirestore) {
     this.textSamples = this.afs.collection('textSpeechTest', ref => ref.orderBy('displayOrder'));
     //this.allTextData = this.textSamples.valueChanges();
 
-    this.appText = this.afs.collection('textSpeechAppConfig');
+    //this.appText = this.afs.collection('textSpeechAppConfig');
     //this.appTextData = this.appText.valueChanges();
 
     this.allText = this.textSamples.snapshotChanges().pipe(

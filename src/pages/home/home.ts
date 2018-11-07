@@ -47,6 +47,8 @@ export class HomePage {
 
   ionViewDidLoad() {
 
+    console.log(this.allText);
+
     this.textProvider.getAppConfigText('headerText').subscribe(val => {
       this.headerText = val['text'];
     });

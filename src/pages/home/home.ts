@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { TextToSpeech } from '@ionic-native/text-to-speech';
+import { TextSamplesProvider } from '../../providers/text-samples/text-samples';
+import { Observable } from 'rxjs';
+import { AngularFirestoreCollection } from 'angularfire2/firestore';
 
 @Component({
   selector: 'page-home',
@@ -11,18 +14,23 @@ export class HomePage {
   speakingLocale = 'en-US';
   speakingRate = 160;
   textToInsert = '';
+  headerText: string = '';
 
-  constructor(public navCtrl: NavController, private tts: TextToSpeech) {
+  private allText: Observable<any>;
+  private allTextData: AngularFirestoreCollection<any>;
 
+  constructor(public navCtrl: NavController, private tts: TextToSpeech, private textProvider: TextSamplesProvider) {
+    this.allText = this.textProvider.getAllText();
+    this.allTextData = this.textProvider.getAllTextData();
   }
 
   updateText(userChoice) {
-    let textDefaults = {
-      anthropocene: 'The Anthropocene Epoch is an unofficial interval of geologic time, making up the third worldwide division of the Quaternary Period characterized as the time in which the collective activities of human beings began to substantially alter Earth’s surface, atmosphere, oceans, and systems of nutrient cycling.',
-      pleistocene: 'The Pleistocene Epoch was the earlier and major of the two epochs that constitute the Quaternary Period of the Earth’s history, and the time period during which a succession of glacial and interglacial climatic cycles occurred.',
-      science: 'Let’s pronounce some eon names: Hadean, Archean, Proterozoic, and Phanerozoic. Now some eras: Paleozoic, Mesozoic, Cenozoic, and the Flintstones era, during which Fred, Wilma, Barney, and Betty lived. And these time periods: Cambrian, Ordovician, Silurian, Devonian, Carboniferous, Permian, Triassic, Jurassic, Cretaceous, Really Delicious, Paleogene, Neogene, Phoney Baloney, and Quaternary.'
+    if(userChoice) {
+      let selItem = this.textProvider.getTextSample(userChoice);
+      selItem.subscribe(val => {
+        this.speakingText = val['text'];
+      });
     }
-    this.speakingText = textDefaults[userChoice];
   }
 
   speakText() {
@@ -38,8 +46,19 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
-    this.updateText('anthropocene');
-    this.textToInsert = 'anthropocene';
-  }
 
+    this.textProvider.getAppConfigText('headerText').subscribe(val => {
+      this.headerText = val['text'];
+    });
+
+    this.allTextData.ref.get().then((docs) => {
+      docs.forEach((doc) => {
+        let me = doc.data();
+        if(me.displayOrder == 0) {
+          this.updateText(doc.id);
+          this.textToInsert = doc.id;
+        }
+      });
+    });
+  }
 }

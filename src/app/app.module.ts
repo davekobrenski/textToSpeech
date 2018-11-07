@@ -13,6 +13,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { firebaseConfig } from './credentials';
+import { TextSamplesProvider } from '../providers/text-samples/text-samples';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { firebaseConfig } from './credentials';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    TextToSpeech
+    TextToSpeech,
+    TextSamplesProvider
   ]
 })
 export class AppModule {}

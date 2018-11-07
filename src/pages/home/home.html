@@ -36,15 +36,17 @@
         <ion-icon name='play'></ion-icon> Speak the Text
     </button> 
     <button ion-button color="danger" outline (click)="stopText()" icon-start>
-        <ion-icon name='square'></ion-icon> Stop Text
+        <ion-icon name='square'></ion-icon> Stop Speaking
     </button> 
   </p>
-  <p ion-text color="muted" text-center>{{ voiceOverRunning }} {{ screenReaderRunning }}</p>
 
 </ion-content>
 
 <ion-footer>
   <ion-toolbar>
-    <div text-center style="color:darkgrey">textToSpeech v0.0.2</div>
+    <div text-center ion-text color="muted" style="padding: 8px 0; line-height:1.4em">
+      textToSpeech v0.0.2 <br>
+      {{ voiceOverRunning }} {{ screenReaderRunning }}
+    </div>
   </ion-toolbar>
 </ion-footer>

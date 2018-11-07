@@ -18,6 +18,8 @@ export class HomePage {
   textToInsert = '';
   headerText: string = '';
 
+  speaking : boolean = false;
+
   screenReaderRunning: string = 'Screen reader NOT enabled.';
   voiceOverRunning: string = 'VoiceOver NOT enabled';
 
@@ -47,12 +49,21 @@ export class HomePage {
     };
 
     this.tts.speak(options)
-      .then(() => console.log('Success'))
-      .catch((reason: any) => console.log(reason));
+      .then(() => {
+        this.speaking=true;
+        console.log('Speaking');
+      })
+      .catch((reason: any) => {
+        this.speaking=false;
+        console.log(reason);
+      });
   }
 
   stopText() {
-    this.tts.stop();
+    //this.tts.stop(); //this doesn't work? oh well
+    this.tts.speak({text: ''}).then(()=>{
+      this.speaking=false;
+    });
   }
 
   ionViewDidLoad() {

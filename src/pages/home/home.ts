@@ -59,6 +59,10 @@ export class HomePage {
       });
   }
 
+  speakTextAlt() {
+    this.mobileAccessibility.speak(this.speakingText);
+  }
+
   stopText() {
     //this.tts.stop(); //this doesn't work? oh well
     this.tts.speak({text: ''}).then(()=>{

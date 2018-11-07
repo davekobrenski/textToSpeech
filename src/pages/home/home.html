@@ -27,7 +27,7 @@
 
     <ion-item>
       <ion-label color="primary" stacked>Text to Speak:</ion-label>
-      <ion-textarea #textToSpeak rows="10" clearInput="true" placeholder="Type some text here" [(ngModel)]="speakingText"></ion-textarea>
+      <ion-textarea #textToSpeak rows="8" clearInput="true" placeholder="Type some text here" [(ngModel)]="speakingText"></ion-textarea>
     </ion-item>
   </ion-list>
 
@@ -39,10 +39,6 @@
         <ion-icon name='square'></ion-icon> Stop Speaking
     </button> 
   </p>
-
-  <button ion-button color="primary" outline (click)="speakTextAlt()" icon-start>
-      <ion-icon name='play'></ion-icon> Alt Speak the Text
-  </button> 
 
 </ion-content>
 

@@ -20,8 +20,8 @@ export class HomePage {
 
   speaking : boolean = false;
 
-  screenReaderRunning: string = 'Screen reader NOT enabled.';
-  voiceOverRunning: string = 'VoiceOver NOT enabled';
+  screenReaderRunning: string = 'Screen reader not available.';
+  voiceOverRunning: string = 'VoiceOver not available';
 
   private allText: Observable<any>;
   private allTextData: AngularFirestoreCollection<any>;
@@ -59,10 +59,6 @@ export class HomePage {
       });
   }
 
-  speakTextAlt() {
-    this.mobileAccessibility.speak(this.speakingText);
-  }
-
   stopText() {
     //this.tts.stop(); //this doesn't work? oh well
     this.tts.speak({text: ''}).then(()=>{
@@ -75,11 +71,11 @@ export class HomePage {
     console.log(this.allText);
 
     if(this.mobileAccessibility.isScreenReaderRunning()) {
-      this.screenReaderRunning = 'Screen reader enabled.';
+      this.screenReaderRunning = 'Screen reader available.';
     }
 
     if(this.mobileAccessibility.isVoiceOverRunning()) {
-      this.voiceOverRunning = 'VoiceOver enabled.';
+      this.voiceOverRunning = 'VoiceOver available.';
     }
 
     this.textProvider.getAppConfigText('headerText').subscribe(val => {
